@@ -22,7 +22,15 @@ mod struct_helpers;
 /// ```
 ///
 /// ## With custom ident
-/// ```rust
+/// ```ignore
+/// # use helpers_macros::InnerFunctionDetails;
+/// #[derive(InnerFunctionDetails)]
+/// #[details(function_id = "some")]
+/// struct Subber(pub fn(i32, i32) -> i64);
+///
+/// fn main() {
+///   assert!(Subber::FUNC_ID, "some");
+/// }
 /// ```
 #[proc_macro_derive(InnerFunctionDetails, attributes(details))]
 pub fn impl_inner_function_details(item: TokenStream) -> TokenStream {

@@ -1,25 +1,32 @@
 #![recursion_limit = "128"]
+#![warn(missing_docs)]
+#![warn(rustdoc::missing_crate_level_docs)]
+
+//! Macro library to help working with [`wasmer`]
+//!
+//! [`wasmer`]: <https://wasmer.io/>
 
 use proc_macro::TokenStream;
 use syn::{parse::Parser, punctuated::Punctuated, token::Comma, ExprType, Ident};
 
-/* For complex types */
 mod complex_types;
 
+/// Macro to export a function in a wasm module (with complex and nonstandard
+/// wasm types)
 #[proc_macro_attribute]
 pub fn complex_export(attr: TokenStream, tokens: TokenStream) -> TokenStream {
     complex_types::complex_export(attr, tokens)
 }
 
-/* For basic types */
 mod standard_types;
 
+/// Macro to export a function in wasm module (only standard wasm types)
 #[proc_macro_attribute]
 pub fn simple_export(attr: TokenStream, tokens: TokenStream) -> TokenStream {
     standard_types::simple_export(attr, tokens)
 }
 
-/* To help with NativeFunction */
+/// To help working with `wasmer::NativeFunc`
 #[proc_macro]
 pub fn impl_call_with_tuple(attrs: TokenStream) -> TokenStream {
     let attrs2 = proc_macro2::TokenStream::from(attrs);

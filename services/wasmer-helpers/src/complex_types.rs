@@ -31,6 +31,13 @@ where
     Ok(convert_slice::<Output>(&buf))
 }
 
+/// Get a function typed and named with `FuncType` in the [`Instance`]
+///
+/// - The first result is errors when getting the [`NativeFunc`] from the instance exports.
+/// - The second result is errors at runtime when calling the function
+///
+/// *NOTE: This function require a tuple of args (with at least 1 arg and at most 20)
+/// that are [`Serialize`] and Output which is [`DeserializeOwned`]*
 pub fn get_func_complex_with_args<FuncType>(
     instance: &Instance,
 ) -> Result<
@@ -66,6 +73,12 @@ where
         })
 }
 
+/// Get a function typed and named with `FuncType` in the [`Instance`]
+///
+/// - The first result is errors when getting the [`NativeFunc`] from the instance exports.
+/// - The second result is errors at runtime when calling the function
+///
+/// *NOTE: This function require a Output which is [`DeserializeOwned`]*
 pub fn get_func_complex_without_args<FuncType>(
     instance: &Instance,
 ) -> Result<impl Fn() -> Result<FuncType::Output, Box<dyn std::error::Error>> + '_, ExportError>
