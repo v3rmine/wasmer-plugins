@@ -28,6 +28,13 @@ docs:
 
 test-all:
     cargo test --locked
+    cargo test --locked --package wasm-plugins --features wasmer-rt-sys
+    cargo test --locked --package wasm-plugins --features wasmer
+
+nextest-all:
+    cargo nextest run
+    cargo nextest run --package wasm-plugins --features wasmer-rt-sys
+    cargo nextest run --package wasm-plugins --features wasmer
 
 clean:
     cargo clean --locked
