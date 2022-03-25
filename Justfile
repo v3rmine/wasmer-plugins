@@ -5,21 +5,18 @@ _default:
 
 check-all:
     cargo clippy --locked -- -D warnings
-
 check-lib:
     cargo clippy --locked --package wasm-plugins -- -D warnings
+build-lib *PARAMS:
+    cargo build --locked --package wasm-plugins {{PARAMS}}
 
-build-lib:
-    cargo build --locked --package wasm-plugins
-
-build-lib-release:
-    cargo build --locked --package wasm-plugins --release
-
-build-example-plugin PLUGIN:
-    cargo build --locked --package {{PLUGIN}} --target wasm32-unknown-unknown
-
-run-example PATH WASM:
-    cargo run --locked --package {{PATH}} -- {{WASM}}
+build-example EXAMPLE:
+    cargo build --locked --package {{EXAMPLE}}-runner
+    cargo build --locked --package {{EXAMPLE}}-plugin --target wasm32-unknown-unknown
+_build-example EXAMPLE:
+    if [ ! -f ./target/wasm32-unknown-unknown/debug/{{replace(EXAMPLE, "-", "_")}}_plugin.wasm ]; then just build-example {{EXAMPLE}}; fi
+run-example EXAMPLE: (_build-example EXAMPLE)
+    cargo run --locked --package {{EXAMPLE}}-runner -- ./target/wasm32-unknown-unknown/debug/{{replace(EXAMPLE, "-", "_")}}_plugin.wasm
 
 docs:
     cargo doc --locked --package wasm-plugins --all-features
