@@ -15,13 +15,11 @@ build-lib:
 build-lib-release:
     cargo build --locked --package wasm-plugins --release
 
-build-examples:
-    cargo build --locked --example simple-runner
-    cargo build --locked --example simple-plugin --target wasm32-unknown-unknown
+build-example-plugin PLUGIN:
+    cargo build --locked --package {{PLUGIN}} --target wasm32-unknown-unknown
 
-build-examples-release:
-    cargo build --locked --example simple-runner --release
-    cargo build --locked --example simple-plugin --target wasm32-unknown-unknown --release
+run-example PATH WASM:
+    cargo run --locked --package {{PATH}} -- {{WASM}}
 
 docs:
     cargo doc --locked --package wasm-plugins --all-features

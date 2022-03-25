@@ -3,9 +3,10 @@
 
 use std::{env, process};
 
+use host_func_abi::GetVersionReq;
 use semver::{Version, VersionReq};
-use simple_abi::GetVersionReq;
-use wasm_plugins::runtime::{get_func_complex_without_args, instanciate_simple};
+use wasm_plugins::runtime::{get_func_complex_without_args, InstanceBuilder};
+use wasmer::{imports, Function, Store};
 
 type StdResult<T> = Result<T, Box<dyn std::error::Error>>;
 
@@ -26,8 +27,30 @@ fn main() {
     };
 }
 
+fn get_page(url: String) -> String {
+    println!("Fetching {}", url);
+    "It work".to_string()
+}
+
 fn run_plugin(path: &str) -> StdResult<()> {
-    let instance = instanciate_simple(path)?;
+    let store = Store::default();
+    let get_page = Function::new_native(&store, |args: i32| {
+        println!("IT WORK {}", args);
+        args - 1
+    });
+
+    let instance = InstanceBuilder::builder()
+        .wasm_path(path)
+        .import_object(imports! {
+            "env" => {
+                "get_page"  => get_page,
+            }
+        })
+        .build()
+        .finalize()?;
+
+    dbg!(&instance.exports);
+
     let get_plugin_requirements = get_func_complex_without_args::<GetVersionReq>(&instance)?;
 
     let plugin_requirements = get_plugin_requirements()?;

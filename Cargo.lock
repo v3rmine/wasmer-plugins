@@ -442,6 +442,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "host-func-abi"
+version = "0.1.0"
+dependencies = [
+ "wasm-plugins",
+]
+
+[[package]]
+name = "host-func-plugin"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "host-func-abi",
+ "wasm-plugins",
+]
+
+[[package]]
+name = "host-func-runner"
+version = "0.1.0"
+dependencies = [
+ "host-func-abi",
+ "semver",
+ "wasm-plugins",
+ "wasmer",
+]
+
+[[package]]
 name = "ident_case"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -858,6 +884,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1c107b6f4780854c8b126e228ea8869f4d7b71260f962fefb57b996b8959ba6b"
 
 [[package]]
+name = "semver"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a4a3381e03edd24287172047536f20cabde766e2cd3e65e6b00fb3af51c4f38d"
+
+[[package]]
 name = "serde"
 version = "1.0.136"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -884,6 +916,31 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "simple-abi"
+version = "0.1.0"
+dependencies = [
+ "wasm-plugins",
+]
+
+[[package]]
+name = "simple-plugin"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "simple-abi",
+ "wasm-plugins",
+]
+
+[[package]]
+name = "simple-runner"
+version = "0.1.0"
+dependencies = [
+ "semver",
+ "simple-abi",
+ "wasm-plugins",
 ]
 
 [[package]]
@@ -1103,6 +1160,7 @@ dependencies = [
  "assay",
  "helpers",
  "helpers-macros",
+ "wasmer",
  "wasmer-helpers",
  "wasmer-helpers-macros",
 ]

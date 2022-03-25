@@ -1,9 +1,6 @@
 [workspace]
-members = [
-    "lib",
-    "services/*"
-]
-resolver = "2" # yes, as a string
+members = ["lib", "services/*", "examples/*"]
+resolver = "2"                                # yes, as a string
 
 [profile.release]
 debug = 1

@@ -8,6 +8,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 simple-abi = { path = "../simple-abi" }
-wasm-plugins = { path = "../../lib", features = ["wasmer"] }
+wasm-plugins = { path = "../../lib", features = ["wasmer-backend"] }
 
 bincode = "^1.3"

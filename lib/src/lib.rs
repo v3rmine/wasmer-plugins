@@ -26,7 +26,7 @@
 //!
 //! ### Example
 //! ```toml
-//! wasm-plugins = { version = "0.1", features = ["wasmer"] }
+//! wasm-plugins = { version = "0.1", features = ["wasmer-backend"] }
 //! ```
 //!
 //! ## Creating a runnner
@@ -38,7 +38,7 @@
 //! ```
 //!
 //! # Feature flags
-//! - `wasmer`: Enable the exports macros to define methods in the plugins
+//! - `wasmer-backend`: Enable the exports macros to define methods in the plugins
 //! - `wasmer-rt-sys`: Enable the sys runtime of [`wasmer`] for the runner
 //! - `wasmer-rt-js`: Enable the js runtime of [`wasmer`] for the runner
 //!
@@ -57,7 +57,7 @@ pub mod runtime {
     };
 }
 
-#[cfg(feature = "wasmer")]
+#[cfg(feature = "wasmer-backend")]
 pub mod plugin {
     //! The macros to export the plugins methods
     pub use wasmer_helpers_macros::{complex_export, simple_export};
