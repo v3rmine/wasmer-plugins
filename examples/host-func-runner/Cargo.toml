@@ -10,5 +10,3 @@ wasmer = { version = "^2.1", default-features = false, features = [
 	"sys",
 	"sys-default",
 ] }
-
-semver = "^1.0"

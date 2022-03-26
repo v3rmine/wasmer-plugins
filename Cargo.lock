@@ -462,7 +462,6 @@ name = "host-func-runner"
 version = "0.1.0"
 dependencies = [
  "host-func-abi",
- "semver",
  "wasm-plugins",
  "wasmer",
 ]
